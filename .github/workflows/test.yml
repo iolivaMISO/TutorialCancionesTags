@@ -1,4 +1,5 @@
 name: CI
+
 # Controls when the action will run. 
 on:
   push:
@@ -40,7 +41,8 @@ jobs:
           coverage run -m unittest tests/*.py
           coverage report -m
   automerge:
-    name: Automerge
+    if: ${{ contains(github.event.head_commit.message, 'PLEASE_MERGE') }}
+    name: merge to develop
     needs: job1
     runs-on: ubuntu-latest
     steps:
@@ -51,4 +53,3 @@ jobs:
           MERGE_LABELS: ""
           source-branch: ${{ github.ref }}
           target-branch: develop
-  
