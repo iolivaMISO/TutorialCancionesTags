@@ -31,3 +31,7 @@ jobs:
       run: |
           coverage run -m unittest tests/*.py
           coverage report -m
+      if: ${{ failure() }}
+      env:
+        MENSAJE_ERROR: Una o varias pruebas fallaron
+      run: echo "::set-output name=respuesta::${MENSAJE_ERROR}"
