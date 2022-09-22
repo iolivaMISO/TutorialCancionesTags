@@ -10,5 +10,6 @@ if __name__ == '__main__':
     
     coleccion = Coleccion()
 
+
     app = ic.App(sys.argv, coleccion)
     sys.exit(app.exec_())
