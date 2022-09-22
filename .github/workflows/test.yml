@@ -47,10 +47,8 @@ jobs:
 #          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 #          source-branch: ${{ github.ref }}
 #          target-branch: develop
-    - name: checkout
-      uses: actions/checkout@v2
     - name: merge
-      uses: mtanzi/action-automerge@v1
+      uses: pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f
       id: merge
       with:
         github_token: ${{ github.token }}
