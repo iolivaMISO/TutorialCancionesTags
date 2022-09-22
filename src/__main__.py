@@ -9,7 +9,6 @@ if __name__ == '__main__':
     session.close()
     
     coleccion = Coleccion()
-
-
+    ###PLEASE_MERGE carajo
     app = ic.App(sys.argv, coleccion)
     sys.exit(app.exec_())
