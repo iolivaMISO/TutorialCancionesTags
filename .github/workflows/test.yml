@@ -1,10 +1,11 @@
 name: CI
-
 # Controls when the action will run. 
 on:
   push:
     branches: 
       - 'feature**'
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -40,18 +41,11 @@ jobs:
       run: |
           coverage run -m unittest tests/*.py
           coverage report -m
-#    - name: merge to develop
-#      if: ${{ contains(github.event.head_commit.message, 'PLEASE_MERGE') }}
-#      uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
-#      with:
-#          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-#          source-branch: ${{ github.ref }}
-#          target-branch: develop
-    - name: merge
-      uses: pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f
-      id: merge
+    - name: merge to develop
+      if: ${{ contains(github.event.head_commit.message, 'PLEASE_MERGE') }}
+      uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
       with:
-        github_token: ${{ github.token }}
-        source: ${{ github.ref }}
-        target: 'develop'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          source-branch: ${{ github.ref }}
+          target-branch: develop
 
