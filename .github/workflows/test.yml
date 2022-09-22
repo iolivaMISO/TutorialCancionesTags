@@ -4,8 +4,6 @@ on:
   push:
     branches: 
       - 'feature**'
-env:
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -48,4 +46,9 @@ jobs:
           GITHUB_TOKEN: "${{ GITHUB_TOKEN }}"
           source-branch: ${{ github.ref }}
           target-branch: develop
-
+    - name: Mezcla rama1 -> rama2
+      uses: tukasz/direct-merge-action@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        source-branch: ${{ github.ref }}
+        target-branch: develop
