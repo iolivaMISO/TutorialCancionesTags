@@ -7,7 +7,7 @@ from src.modelo.declarative_base import session, Base, engine
 if __name__ == '__main__':
     Base.metadata.create_all(engine)
     session.close()
-    print ("primer prueba")
+    #print ("primer prueba")
     coleccion = Coleccion()
 
     app = ic.App(sys.argv, coleccion)
