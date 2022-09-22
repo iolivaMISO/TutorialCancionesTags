@@ -40,18 +40,16 @@ jobs:
       run: |
           coverage run -m unittest tests/*.py
           coverage report -m
-#    - name: merge to develop
-#      if: ${{ contains(github.event.head_commit.message, 'PLEASE_MERGE') }}
-#      uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
-#      with:
-#          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-#          source-branch: ${{ github.ref }}
-#          target-branch: develop
-    - name: merge
-      uses: pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f
-      id: merge
-      with:
-        github_token: ${{ github.token }}
-        source: ${{ github.ref }}
-        target: 'develop'
-
+  automerge:
+    if: ${{ contains(github.event.head_commit.message, 'PLEASE_MERGE') }}
+    name: merge to develop
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: ""
+          source-branch: ${{ github.ref }}
+          target-branch: develop
